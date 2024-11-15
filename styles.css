@@ -270,28 +270,3 @@ main {
   background: var(--clr-primary-5);
   color: var(--clr-primary-1);
 }
-
-/* My added styles */
-.article {
-  width: 500px;
-  height: 500px;
-  outline: 3px dotted orangered;
-}
-
-.article__img {
-  width: 100%;
-  display: block;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  position: relative;
-}
-
-.article__img__container {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-bottom: 1.5rem;
-}
