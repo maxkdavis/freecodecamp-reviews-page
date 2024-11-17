@@ -1,4 +1,6 @@
-// local reviews data
+'use strict';
+
+// local reviews data... id, name, job, img, text properties
 const reviews = [
   {
     id: 1,
@@ -30,51 +32,62 @@ const reviews = [
   },
 ];
 
-//select items
+//step 1: selecting elements
 const imgEl = document.getElementById('person-img');
 const authorEl = document.getElementById('author');
 const jobEl = document.getElementById('job');
 const infoEl = document.getElementById('info');
-// console.log(imgEl, authorEl. jobEl, infoEl);
-
+//target our buttons
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const randomBtn = document.querySelector('.random-btn');
-// console.log(prevBtn, nextBtn, randomBtn);
 
-// set starting item
-let currentItem = 0;
+//step 2: create a counter variable in the global scope to navigate through our reviews array
+let personCounter = 0;
 
-// load initial item
-window.addEventListener('DOMContentLoaded', function () {
-  showPerson(currentItem);
-});
-
-// show person based on item
-function showPerson(person) {
-  const item = reviews[person];
+//step 3: create a function to render DOM elements
+const displayPerson = function (person) {
+  let item = reviews[person];
   imgEl.src = item.img;
   authorEl.textContent = item.name;
   jobEl.textContent = item.job;
   infoEl.textContent = item.text;
-}
+};
 
-// show next person
-nextBtn.addEventListener('click', function () {
-  currentItem++;
-  //to loop around if we reach the last person. go back to the first person
-  if (currentItem > reviews.length - 1) {
-    currentItem = 0;
-  }
-  showPerson(currentItem);
+window.addEventListener('DOMContentLoaded', function () {
+  displayPerson(personCounter);
 });
 
-// show previous person
-prevBtn.addEventListener('click', function () {
-  currentItem--;
-  //to loop around if we reach the last person. go back to the first person
-  if (currentItem < 0) {
-    currentItem = reviews.length - 1;
+//step 4: adding event listners to our buttons
+//next button
+nextBtn.addEventListener('click', function () {
+  personCounter++;
+  if (personCounter > reviews.length - 1) {
+    personCounter = 0;
   }
-  showPerson(currentItem);
+  displayPerson(personCounter);
+});
+
+//previous button
+prevBtn.addEventListener('click', function () {
+  personCounter--;
+  if (personCounter < 0) {
+    personCounter = reviews.length - 1;
+  }
+  displayPerson(personCounter);
+});
+
+//random button functionality
+//when user clicks on the random button, we should get any random user and display.
+//bonus: can't show same user back-to-back. must be new user per click
+
+//step 1: create a function that generate a random number between 0 and the length of our reviews array
+const getRandomNumber = function () {
+  return Math.floor(Math.random() * reviews.length);
+};
+
+//step 2: add the event listener to our random button
+randomBtn.addEventListener('click', function () {
+  let randomNum = getRandomNumber();
+  displayPerson(randomNum);
 });
